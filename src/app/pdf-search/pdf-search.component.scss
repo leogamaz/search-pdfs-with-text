@@ -1,0 +1,18 @@
+nb-card {
+  margin: 20px;
+}
+
+nb-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #3366ff;
+}
+
+a:hover {
+  text-decoration: underline;
+}
