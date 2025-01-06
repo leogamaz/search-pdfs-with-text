@@ -1,2 +1,24 @@
-<!-- <button mat-button (click)="openDirectoryDialog()">Selecionar Diretório</button> -->
-<p>test</p>
+<!-- Botão customizado -->
+<div class="mainFunction">
+  <button id="buttonFolderChose" (click)="fileInput.click()">
+    <img
+      src="../../assets/icons/folderIcon.svg"
+      width="20px"
+      height="20px"
+      alt=""
+    />
+  </button>
+
+  <!-- Input de arquivo escondido -->
+  <input
+    #fileInput
+    id="fileInput"
+    type="file"
+    (change)="onFolderSelect($event)"
+    webkitdirectory
+    directory
+    style="display: none"
+  />
+</div>
+
+<!-- Exibição do nome do arquivo selecionado, se necessário -->

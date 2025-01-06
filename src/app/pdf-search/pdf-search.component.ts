@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pdf-search',
@@ -6,16 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pdf-search.component.scss'],
 })
 export class PdfSearchComponent implements OnInit {
+  selectedFile: File | null = null;
+  buttonText = 'Selecione uma pasta'; // Texto do botão personalizado
+
   ngOnInit() {
     //this.loadPdfFiles();
   }
-  // openDirectoryDialog(): void {
-  //   const dialogRef = this.dialog.open(DirectoryDialogComponent);
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result) {
-  //       console.log('Diretório selecionado:', result);
-  //     }
-  //   });
-  // }
+  onFolderSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      this.selectedFile = input.files[0]; // Armazena o arquivo selecionado
+    }
+  }
 }
