@@ -1,24 +1,106 @@
-<!-- Botão customizado -->
-<div class="mainFunction">
-  <button id="buttonFolderChose" (click)="fileInput.click()">
-    <img
-      src="../../assets/icons/folderIcon.svg"
-      width="20px"
-      height="20px"
-      alt=""
-    />
-  </button>
+<div class="container">
+  <h1 style="color: blueviolet">Search PDF's</h1>
+  <div class="functionality">
+    <div class="choseFolder">
+      <button class="choseFolderButton" (click)="triggerFileInput()">
+        <img
+          src="assets/icons/folderIcon.svg"
+          width="20px"
+          height="20px"
+          alt="Folder Icon"
+        />
+      </button>
+      <input
+        type="file"
+        name="folder"
+        id="inputFolder"
+        webkitdirectory
+        directory
+        (change)="onFolderSelect($event)"
+        style="display: none"
+      />
+    </div>
 
-  <!-- Input de arquivo escondido -->
-  <input
-    #fileInput
-    id="fileInput"
-    type="file"
-    (change)="onFolderSelect($event)"
-    webkitdirectory
-    directory
-    style="display: none"
-  />
+    <div class="search">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Digite o termo de pesquisa"
+      />
+      <button
+        class="searchButton"
+        (click)="searchInPdfs()"
+        [disabled]="selectedFiles.length == 0"
+        [title]="
+          selectedFiles.length == 0
+            ? 'Selecione um diretório com Pdfs antes de continuar'
+            : ''
+        "
+      >
+        Pesquisar
+      </button>
+      <button
+        (click)="reloadPage()"
+        class="reload-button"
+        title="Recarregar aplicação"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path
+            d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="containerProgressbar">
+    <mat-progress-bar
+      [value]="progress"
+      mode="determinate"
+      class="custom-progress-bar"
+    ></mat-progress-bar>
+    <div class="progress-info" *ngIf="progress !== 0">
+      <span>{{
+        progress === 100 ? "Pesquisa Finalizada" : "Pesquisando..."
+      }}</span>
+    </div>
+  </div>
+  <div
+    class="results"
+    *ngIf="(searchResults.length > 0 || searchQuery) && progress === 100"
+  >
+    <ul class="resultsList">
+      <li
+        *ngFor="let result of searchResults; let i = index"
+        class="resultItem"
+      >
+        <h3>{{ result.fileName }}</h3>
+        <p>Ocorrências: {{ result.occurrences }}</p>
+
+        <!-- Botão para expandir/ocultar detalhes -->
+        <button class="expandButton" (click)="toggleDetails(i)">
+          {{ expandedIndex === i ? "Ocultar Detalhes" : "Exibir Detalhes" }}
+        </button>
+
+        <!-- Detalhes das ocorrências -->
+        <ul class="snippets" *ngIf="expandedIndex === i">
+          <li *ngFor="let snippet of result.snippets">
+            {{ snippet }}
+          </li>
+        </ul>
+
+        <!-- Botão Abrir -->
+        <button class="openButton" (click)="openPdf(result.file)">Abrir</button>
+      </li>
+    </ul>
+
+    <p class="noResults" *ngIf="searchResults.length === 0 && searchQuery">
+      Nenhum resultado encontrado.
+    </p>
+  </div>
 </div>
-
-<!-- Exibição do nome do arquivo selecionado, se necessário -->

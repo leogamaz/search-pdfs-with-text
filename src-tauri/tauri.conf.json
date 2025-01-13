@@ -12,7 +12,7 @@
   "tauri": {
     "bundle": {
       "active": true,
-      "targets": "all",
+      "targets": "deb",
       "identifier": "com.angular.tauri.dev",
       "icon": [
         "icons/32x32.png",
@@ -21,6 +21,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
+
       "resources": [],
       "externalBin": [],
       "copyright": "",
@@ -52,11 +53,12 @@
     },
     "windows": [
       {
-        "title": "Angular Tauri",
-        "width": 800,
-        "height": 600,
+        "title": "Search Pdf's",
+        "width": 825,
+        "height": 612,
         "resizable": true,
-        "fullscreen": false
+        "minWidth": 825,
+        "minHeight": 612
       }
     ],
     "security": {
