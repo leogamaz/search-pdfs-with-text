@@ -12,7 +12,7 @@
   "tauri": {
     "bundle": {
       "active": true,
-      "targets": "deb",
+      "targets": "all",
       "identifier": "com.angular.tauri.dev",
       "icon": [
         "icons/32x32.png",
